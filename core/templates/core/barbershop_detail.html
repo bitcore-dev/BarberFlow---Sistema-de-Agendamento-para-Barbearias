@@ -1,0 +1,73 @@
+
+{% extends "core/base.html" %}
+
+{% block title %}{{ barbearia.name }} | BarberFlow{% endblock %}
+
+{% block content %}
+<section class="shop-detail">
+    <a href="{% url 'home' %}" class="back-link">
+        ← Voltar para a busca
+    </a>
+
+    <header class="shop-detail-header">
+        <p class="eyebrow">BARBEARIA</p>
+        <h1>{{ barbearia.name }}</h1>
+
+        <p class="shop-detail-location">
+            {{ barbearia.neighborhood }}, {{ barbearia.city }}
+        </p>
+
+        {% if barbearia.description %}
+            <p class="shop-detail-description">
+                {{ barbearia.description }}
+            </p>
+        {% endif %}
+
+        <p class="shop-detail-address">
+            <strong>Endereço:</strong> {{ barbearia.address }}
+        </p>
+
+        {% if barbearia.phone %}
+            <p class="shop-detail-address">
+                <strong>Telefone:</strong> {{ barbearia.phone }}
+            </p>
+        {% endif %}
+    </header>
+
+    <section class="services-section">
+        <p class="eyebrow">O QUE OFERECEMOS</p>
+        <h2>Serviços e preços</h2>
+
+        {% if servicos %}
+            <div class="services-grid">
+                {% for servico in servicos %}
+                    <article class="service-card">
+                        <h3>{{ servico.name }}</h3>
+
+                        {% if servico.description %}
+                            <p>{{ servico.description }}</p>
+                        {% endif %}
+
+                        <p class="service-price">
+                            R$ {{ servico.price|floatformat:2 }}
+                        </p>
+
+                        <p class="service-duration">
+                            Duração estimada:
+                            {{ servico.estimated_duration_minutes }} minutos
+                        </p>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-results">
+                <h3>Nenhum serviço cadastrado ainda</h3>
+                <p>
+                    Os serviços desta barbearia serão exibidos aqui
+                    quando estiverem disponíveis.
+                </p>
+            </div>
+        {% endif %}
+    </section>
+</section>
+{% endblock %}

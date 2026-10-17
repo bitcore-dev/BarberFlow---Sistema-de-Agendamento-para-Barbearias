@@ -1,0 +1,153 @@
+
+{% extends "core/base.html" %}
+
+{% block title %}BarberFlow | Encontre sua próxima barbearia{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <p class="eyebrow">SEU PRÓXIMO CORTE COMEÇA AQUI</p>
+
+        <h1>
+            Encontre sua barbearia.
+            <span>Entre na fila.</span>
+        </h1>
+
+        <p class="hero-description">
+            Descubra barbearias da sua região, compare serviços
+            e organize seu próximo atendimento em um só lugar.
+        </p>
+
+        <form class="search-form" action="{% url 'home' %}" method="get">
+            <label for="neighborhood">Onde você quer cortar o cabelo?</label>
+
+            <div class="search-controls">
+                <input
+                    type="text"
+                    id="neighborhood"
+                    name="bairro"
+                    placeholder="Digite seu bairro, ex.: Campo Grande"
+                    value="{{ termo }}"
+                >
+
+                <button type="submit" class="btn-primary">
+                    Buscar barbearias
+                </button>
+            </div>
+        </form>
+
+        <p class="search-note">
+            Encontre opções próximas de você, sem complicação.
+        </p>
+    </div>
+
+    <div class="hero-decoration" aria-hidden="true">
+        <div class="hero-emblem">
+            <span>BF</span>
+            <div class="emblem-line"></div>
+            <p>BARBERFLOW</p>
+        </div>
+    </div>
+</section>
+
+{% if pesquisou %}
+<section class="search-results">
+    <p class="eyebrow">RESULTADOS DA PESQUISA</p>
+    <h2>Barbearias encontradas</h2>
+    <p class="results-subtitle">
+        Pesquisa por: <strong>{{ termo }}</strong>
+    </p>
+
+    {% if barbearias %}
+        <div class="barbershop-grid">
+            {% for barbearia in barbearias %}
+                <article class="barbershop-card">
+                    <div class="card-top">
+                        <span class="card-label">BARBEARIA</span>
+                        <span class="status-dot">Ativa</span>
+                    </div>
+
+                    <h3>{{ barbearia.name }}</h3>
+
+                    <p class="shop-location">
+                        {{ barbearia.neighborhood }},
+                        {{ barbearia.city }}
+                    </p>
+
+                    {% if barbearia.description %}
+                        <p class="shop-description">
+                            {{ barbearia.description }}
+                        </p>
+                    {% else %}
+                        <p class="shop-description">
+                            Conheça esta barbearia e seus serviços.
+                        </p>
+                    {% endif %}
+
+                    <p class="shop-address">
+                        {{ barbearia.address }}
+                    </p>
+                    <a
+                        href="{% url 'barbershop_detail' barbearia.pk %}"
+                        class="shop-details-link"
+                        >
+                        Ver barbearia e serviços →
+                    </a>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-results">
+            <h3>Nenhuma barbearia encontrada</h3>
+            <p>
+                Tente outro nome, bairro ou cidade.
+            </p>
+        </div>
+    {% endif %}
+</section>
+{% endif %}
+
+<section class="benefits">
+    <article class="benefit-card">
+        <span class="benefit-number">01</span>
+        <h2>Descubra</h2>
+        <p>
+            Conheça barbearias, profissionais e serviços
+            disponíveis na sua região.
+        </p>
+    </article>
+
+    <article class="benefit-card">
+        <span class="benefit-number">02</span>
+        <h2>Compare</h2>
+        <p>
+            Consulte preços, veja avaliações quando disponíveis
+            e escolha o atendimento ideal.
+        </p>
+    </article>
+
+    <article class="benefit-card">
+        <span class="benefit-number">03</span>
+        <h2>Organize-se</h2>
+        <p>
+            Acompanhe suas solicitações e, futuramente,
+            sua posição na fila de atendimento.
+        </p>
+    </article>
+</section>
+
+<section class="owner-cta">
+    <div>
+        <p class="eyebrow">PARA PROFISSIONAIS</p>
+        <h2>Leve sua barbearia mais longe.</h2>
+        <p>
+            Prepare sua presença digital e facilite a organização
+            dos atendimentos.
+        </p>
+    </div>
+
+    <a href="{% url 'register' %}" class="btn-primary">
+        Criar minha conta
+    </a>
+</section>
+{% endblock %}

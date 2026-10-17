@@ -1,0 +1,599 @@
+:root {
+    --color-bg: #0B111D;
+    --color-gold: #FFBE00;
+    --color-text: #F4F6FA;
+    --color-muted: #AAB3C2;
+    --color-panel: #141D2B;
+    --color-border: #2B3545;
+    --color-danger: #FF7777;
+}
+
+body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+a {
+    color: var(--color-gold);
+}
+
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 10px 6%;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.brand {
+    color: var(--color-text);
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.brand span,
+.eyebrow {
+    color: var(--color-gold);
+}
+
+.site-header nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.site-header nav a {
+    text-decoration: none;
+}
+
+.nav-form {
+    display: inline;
+    margin: 0;
+}
+
+.nav-button {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--color-gold);
+    font: inherit;
+    cursor: pointer;
+}
+
+.auth-container,
+.dashboard {
+    width: min(560px, 88%);
+    margin: 60px auto;
+    padding: 28px;
+    background: var(--color-panel);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    box-sizing: border-box;
+}
+
+.auth-container h1,
+.dashboard h1 {
+    margin-top: 0;
+}
+
+.auth-container form p {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.auth-container input,
+.auth-container select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 7px;
+    background: var(--color-bg);
+    color: var(--color-text);
+}
+
+.auth-container input:focus,
+.auth-container select:focus {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 7px;
+    background: var(--color-gold);
+    color: var(--color-bg);
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.form-error {
+    color: var(--color-danger);
+}
+
+.site-footer {
+    padding: 28px 6%;
+    color: var(--color-muted);
+    text-align: center;
+    border-top: 1px solid var(--color-border);
+}
+
+@media (max-width: 600px) {
+    .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .auth-container,
+    .dashboard {
+        margin: 32px auto;
+        padding: 20px;
+    }
+}
+
+
+/* Página inicial do BarberFlow */
+
+.hero {
+    display: grid;
+    grid-template-columns: 1.4fr 0.6fr;
+    align-items: center;
+    gap: 48px;
+    min-height: 480px;
+    padding: 64px 8%;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.hero-content {
+    max-width: 720px;
+}
+
+.eyebrow {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+.hero h1 {
+    margin: 16px 0;
+    font-size: clamp(2.4rem, 5vw, 4.6rem);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+}
+
+.hero h1 span {
+    display: block;
+    color: var(--color-gold);
+}
+
+.hero-description {
+    max-width: 580px;
+    color: var(--color-muted);
+    font-size: 1.05rem;
+}
+
+.search-form {
+    margin-top: 32px;
+}
+
+.search-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.search-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.search-controls input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-panel);
+    color: var(--color-text);
+    font: inherit;
+}
+
+.search-controls input:focus {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+}
+
+.search-note {
+    color: var(--color-muted);
+    font-size: 0.85rem;
+}
+
+.hero-decoration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 280px;
+}
+
+.hero-emblem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    height: 220px;
+    border: 1px solid var(--color-gold);
+    border-radius: 50%;
+    box-shadow: 0 0 60px rgb(255 190 0 / 8%);
+}
+
+.hero-emblem span {
+    color: var(--color-gold);
+    font-size: 5rem;
+    font-weight: 900;
+    letter-spacing: -0.1em;
+}
+
+.emblem-line {
+    width: 70px;
+    height: 2px;
+    background: var(--color-gold);
+}
+
+.hero-emblem p {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+}
+
+.benefits {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    padding: 64px 8%;
+}
+
+.benefit-card {
+    padding: 26px;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-panel);
+}
+
+.benefit-number {
+    color: var(--color-gold);
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.benefit-card h2 {
+    margin-bottom: 8px;
+}
+
+.benefit-card p {
+    margin-bottom: 0;
+    color: var(--color-muted);
+}
+
+.owner-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin: 0 8% 64px;
+    padding: 32px;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: var(--color-panel);
+}
+
+.owner-cta h2 {
+    margin: 8px 0;
+}
+
+.owner-cta p:not(.eyebrow) {
+    color: var(--color-muted);
+}
+
+@media (max-width: 800px) {
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 48px 6%;
+    }
+
+    .hero-decoration {
+        min-height: 200px;
+    }
+
+    .hero-emblem {
+        width: 170px;
+        height: 170px;
+    }
+
+    .hero-emblem span {
+        font-size: 3.8rem;
+    }
+
+    .benefits {
+        grid-template-columns: 1fr;
+        padding: 36px 6%;
+    }
+
+    .owner-cta {
+        align-items: flex-start;
+        flex-direction: column;
+        margin: 0 6% 40px;
+        padding: 24px;
+    }
+}
+
+@media (max-width: 520px) {
+    .search-controls {
+        flex-direction: column;
+    }
+
+    .search-controls .btn-primary {
+        width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Logo */
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.brand-logo {
+    display: block;
+    height: 90px;  
+    width: auto;       
+    max-width: 100%;
+    object-fit: contain;
+}
+
+@media (max-width: 600px) {
+    .brand-logo {
+        height: 64px;
+    }
+}
+
+
+/* Resultados da pesquisa */
+.search-results {
+    padding: 48px 8%;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.search-results h2 {
+    margin: 8px 0;
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+}
+
+.results-subtitle,
+.shop-location,
+.shop-description,
+.shop-address {
+    color: var(--color-muted);
+}
+
+.barbershop-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 28px;
+}
+
+.barbershop-card {
+    min-width: 0;
+    padding: 24px;
+    background: var(--color-panel);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.barbershop-card:hover {
+    border-color: var(--color-gold);
+    transform: translateY(-3px);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.card-label {
+    color: var(--color-gold);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+}
+
+.status-dot {
+    color: #91D7A2;
+    font-size: 0.8rem;
+}
+
+.barbershop-card h3 {
+    margin: 20px 0 8px;
+    overflow-wrap: anywhere;
+}
+
+.shop-location {
+    font-size: 0.9rem;
+}
+
+.shop-description {
+    line-height: 1.6;
+}
+
+.shop-address {
+    padding-top: 12px;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.85rem;
+    overflow-wrap: anywhere;
+}
+
+.empty-results {
+    margin-top: 24px;
+    padding: 28px;
+    background: var(--color-panel);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+}
+
+.empty-results p {
+    color: var(--color-muted);
+}
+
+@media (max-width: 900px) {
+    .barbershop-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .search-results {
+        padding: 36px 6%;
+    }
+
+    .barbershop-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+.shop-details-link {
+    display: inline-block;
+    margin-top: 12px;
+    color: var(--color-gold);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.shop-details-link:hover {
+    text-decoration: underline;
+}
+
+
+/* Página de detalhes da barbearia */
+.shop-detail {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 6%;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 28px;
+    color: var(--color-gold);
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.shop-detail-header {
+    padding: 36px;
+    background: var(--color-panel);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+}
+
+.shop-detail-header h1 {
+    margin: 12px 0;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    overflow-wrap: anywhere;
+}
+
+.shop-detail-location,
+.shop-detail-description,
+.shop-detail-address {
+    color: var(--color-muted);
+}
+
+.shop-detail-description {
+    max-width: 760px;
+    line-height: 1.7;
+}
+
+.services-section {
+    margin-top: 48px;
+}
+
+.services-section h2 {
+    margin-top: 8px;
+    margin-bottom: 24px;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.service-card {
+    min-width: 0;
+    padding: 24px;
+    background: var(--color-panel);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+}
+
+.service-card h3 {
+    margin-top: 0;
+    overflow-wrap: anywhere;
+}
+
+.service-card > p:not(.service-price) {
+    color: var(--color-muted);
+}
+
+.service-price {
+    margin: 20px 0 8px;
+    color: var(--color-gold);
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.service-duration {
+    font-size: 0.9rem;
+}
+
+@media (max-width: 850px) {
+    .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    .shop-detail {
+        padding: 28px 5%;
+    }
+
+    .shop-detail-header {
+        padding: 24px;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,18 @@
+
+{% extends "core/base.html" %}
+
+{% block title %}Painel do cliente | BarberFlow{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+    <p class="eyebrow">ÁREA DO CLIENTE</p>
+    <h1>Bem-vindo ao BarberFlow.</h1>
+    <p>
+        Sua conta está pronta. Em breve você poderá pesquisar
+        barbearias e acompanhar sua posição na fila.
+    </p>
+    <a href="{% url 'home' %}" class="btn-primary">
+        Voltar ao início
+    </a>
+</section>
+{% endblock %}

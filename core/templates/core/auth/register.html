@@ -1,0 +1,23 @@
+
+{% extends "core/base.html" %}
+
+{% block content %}
+<section class="auth-container">
+    <h1>Criar conta</h1>
+    <p>Entre para conhecer o BarberFlow.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn-primary">
+            Criar minha conta
+        </button>
+    </form>
+
+    <p>
+        Já possui uma conta?
+        <a href="{% url 'login' %}">Entrar</a>
+    </p>
+</section>
+{% endblock %}

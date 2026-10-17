@@ -1,0 +1,19 @@
+
+{% extends "core/base.html" %}
+
+{% block title %}Painel da barbearia | BarberFlow{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+    <p class="eyebrow">ÁREA DO PROPRIETÁRIO</p>
+    <h1>Gerencie sua barbearia.</h1>
+    <p>
+        Sua conta de proprietário está pronta.
+        Em breve você poderá cadastrar sua barbearia,
+        seus profissionais e seus serviços.
+    </p>
+    <a href="{% url 'home' %}" class="btn-primary">
+        Voltar ao início
+    </a>
+</section>
+{% endblock %}
