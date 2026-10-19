@@ -1,6 +1,8 @@
 
 {% extends "core/base.html" %}
 
+{% block title %}Criar conta | BarberFlow{% endblock %}
+
 {% block content %}
 <section class="auth-container">
     <h1>Criar conta</h1>
@@ -8,7 +10,42 @@
 
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+
+        {% if form.non_field_errors %}
+            <div class="form-errors danger" role="alert">
+                <p>Não foi possível concluir o cadastro:</p>
+
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% elif form.errors %}
+            <div class="form-errors danger" role="alert">
+                <p>Não foi possível concluir o cadastro. Confira os campos destacados abaixo.</p>
+            </div>
+        {% endif %}
+
+        {% for field in form %}
+            <p class="form-field">
+                {{ field.label_tag }}
+
+                {{ field }}
+
+                {% if field.errors %}
+                    <span class="field-error danger" role="alert">
+                        {% for error in field.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </span>
+                {% endif %}
+
+                {% if field.help_text %}
+                    <small class="field-help">
+                        {{ field.help_text|safe }}
+                    </small>
+                {% endif %}
+            </p>
+        {% endfor %}
 
         <button type="submit" class="btn-primary">
             Criar minha conta

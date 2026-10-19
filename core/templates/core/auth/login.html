@@ -4,22 +4,20 @@
 {% block content %}
 <section class="auth-container">
     <h1>Entrar no BarberFlow</h1>
-
-    {% if form.errors %}
-        <p class="form-error">
-            Usuário ou senha inválidos. Tente novamente.
-        </p>
-    {% endif %}
+    <p>Acesse sua conta para continuar.</p>
 
     <form method="post">
         {% csrf_token %}
+
+        {% if form.errors %}
+            <div class="form-errors">
+                Usuário ou senha inválidos. Confira os dados e tente novamente.
+            </div>
+        {% endif %}
+
         {{ form.as_p }}
 
-        <input
-            type="hidden"
-            name="next"
-            value="{{ next }}"
-        >
+        <input type="hidden" name="next" value="{{ next|default:'' }}">
 
         <button type="submit" class="btn-primary">
             Entrar
@@ -27,8 +25,8 @@
     </form>
 
     <p>
-        Ainda não possui conta?
-        <a href="{% url 'register' %}">Cadastre-se</a>
+        Ainda não possui uma conta?
+        <a href="{% url 'register' %}">Criar conta</a>
     </p>
 </section>
 {% endblock %}

@@ -5,12 +5,12 @@ from django.db import models
 
 
 class Barbershop(models.Model):
-    owner = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.PROTECT,
-        related_name="barbershops",
-        verbose_name="proprietário",
-    )
+    owner = models.OneToOneField(
+    settings.AUTH_USER_MODEL,
+    on_delete=models.PROTECT,
+    related_name="barbershop",
+    verbose_name="proprietário",
+)
     name = models.CharField("nome", max_length=120)
     description = models.TextField("descrição", blank=True)
     neighborhood = models.CharField("bairro", max_length=100)
@@ -19,6 +19,10 @@ class Barbershop(models.Model):
     phone = models.CharField("telefone", max_length=20, blank=True)
     is_active = models.BooleanField("ativa", default=True)
     created_at = models.DateTimeField("criada em", auto_now_add=True)
+    daily_capacity = models.PositiveIntegerField("limite diário de clientes",
+    default=30,
+    validators=[MinValueValidator(1)],
+)
 
     class Meta:
         verbose_name = "barbearia"
@@ -106,3 +110,50 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.username} — {self.get_role_display()}"
+
+
+class Booking(models.Model):
+    class Status(models.TextChoices):
+        PENDING = "pending", "Pendente"
+        CONFIRMED = "confirmed", "Confirmado"
+        CANCELLED = "cancelled", "Cancelado"
+        COMPLETED = "completed", "Concluído"
+        NO_SHOW = "no_show", "Não compareceu"
+
+    customer = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        related_name="bookings",
+        verbose_name="cliente",
+    )
+    service = models.ForeignKey(
+        Service,
+        on_delete=models.PROTECT,
+        related_name="bookings",
+        verbose_name="serviço",
+    )
+    date = models.DateField("dia do atendimento")
+    status = models.CharField(
+        "situação",
+        max_length=20,
+        choices=Status.choices,
+        default=Status.PENDING,
+    )
+    created_at = models.DateTimeField(
+        "solicitado em",
+        auto_now_add=True,
+    )
+
+    class Meta:
+        verbose_name = "reserva"
+        verbose_name_plural = "reservas"
+        ordering = ["date", "created_at"]
+        indexes = [
+            models.Index(fields=["date", "status"]),
+        ]
+
+    def __str__(self):
+        return (
+            f"{self.customer.username} — "
+            f"{self.service.name} — {self.date}"
+        )

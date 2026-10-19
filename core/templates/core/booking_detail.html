@@ -1,0 +1,47 @@
+
+{% extends "core/base.html" %}
+
+{% block title %}Minha reserva | BarberFlow{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+    <p class="eyebrow">ACOMPANHAMENTO</p>
+    <h1>Solicitação registrada</h1>
+
+    <p>
+        Sua solicitação foi registrada. Isso ainda não significa
+        que a barbearia confirmou o atendimento.
+    </p>
+
+    <div class="booking-summary">
+        <p>
+            <strong>Barbearia:</strong>
+            {{ reserva.service.barbershop.name }}
+        </p>
+
+        <p>
+            <strong>Serviço:</strong>
+            {{ reserva.service.name }}
+        </p>
+
+        <p>
+            <strong>Data:</strong>
+            {{ reserva.date|date:"d/m/Y" }}
+        </p>
+
+        <p>
+            <strong>Preço informado:</strong>
+            R$ {{ reserva.service.price|floatformat:2 }}
+        </p>
+
+        <p>
+            <strong>Status:</strong>
+            {{ reserva.get_status_display }}
+        </p>
+    </div>
+
+    <a href="{% url 'home' %}" class="btn-primary">
+        Voltar ao início
+    </a>
+</section>
+{% endblock %}

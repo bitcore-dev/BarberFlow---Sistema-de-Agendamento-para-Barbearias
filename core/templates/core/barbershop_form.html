@@ -1,0 +1,58 @@
+{% extends "core/base.html" %}
+
+{% block title %}Cadastrar barbearia | BarberFlow{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+    <p class="eyebrow">ÁREA DO PROPRIETÁRIO</p>
+
+    <h1>Cadastrar minha barbearia</h1>
+
+    <p>
+        Preencha os dados do estabelecimento para disponibilizá-lo
+        no BarberFlow.
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="form-errors danger" role="alert">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% for field in form %}
+            <p class="form-field">
+                {{ field.label_tag }}
+
+                {{ field }}
+
+                {% if field.help_text %}
+                    <small class="field-help">
+                        {{ field.help_text }}
+                    </small>
+                {% endif %}
+
+                {% if field.errors %}
+                    <span class="field-error danger" role="alert">
+                        {% for error in field.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </span>
+                {% endif %}
+            </p>
+        {% endfor %}
+
+        <button type="submit" class="btn-primary">
+            Cadastrar barbearia
+        </button>
+
+        <a href="{% url 'dashboard' %}" class="btn-secondary">
+            Cancelar
+        </a>
+    </form>
+</section>
+{% endblock %}

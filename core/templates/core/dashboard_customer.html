@@ -1,0 +1,70 @@
+{% extends "core/base.html" %}
+
+{% block title %}Painel do cliente | BarberFlow{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+    <p class="eyebrow">ÁREA DO CLIENTE</p>
+
+    <h1>Bem-vindo ao BarberFlow.</h1>
+
+    <p>
+        Encontre barbearias, solicite atendimentos
+        e acompanhe suas reservas em um só lugar.
+    </p>
+
+    <a href="{% url 'home' %}" class="btn-primary">
+        Encontrar barbearias
+    </a>
+</section>
+
+<section class="dashboard">
+    <h2>Minhas reservas</h2>
+
+    <p>
+        Consulte seus atendimentos solicitados e veja os detalhes
+        de cada reserva.
+    </p>
+
+    {% if reservas %}
+        <div class="booking-list">
+            {% for reserva in reservas %}
+                <article class="booking-card">
+                    <h3>{{ reserva.service.barbershop.name }}</h3>
+
+                    <p>
+                        <strong>Serviço:</strong>
+                        {{ reserva.service.name }}
+                    </p>
+
+                    <p>
+                        <strong>Data:</strong>
+                        {{ reserva.date|date:"d/m/Y" }}
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        {{ reserva.get_status_display }}
+                    </p>
+
+                    <a
+                        href="{% url 'booking_detail' reserva.pk %}"
+                        class="btn-primary"
+                    >
+                        Ver detalhes da reserva
+                    </a>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>
+            Você ainda não possui reservas.
+            Quando solicitar um atendimento, ele aparecerá aqui.
+        </p>
+
+        <a href="{% url 'home' %}" class="btn-primary">
+            Encontrar uma barbearia
+        </a>
+    {% endif %}
+</section>
+{% endblock %}

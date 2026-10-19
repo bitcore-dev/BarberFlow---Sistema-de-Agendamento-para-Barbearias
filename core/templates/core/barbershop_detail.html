@@ -32,6 +32,25 @@
                 <strong>Telefone:</strong> {{ barbearia.phone }}
             </p>
         {% endif %}
+
+    
+        {% if barbearia.phone %}
+            <p class="shop-detail-address">
+                <strong>Telefone:</strong> {{ barbearia.phone }}
+            </p>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'create_booking' barbearia.pk %}"
+               class="btn-primary booking-cta">
+                Solicitar atendimento
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}?next={% url 'create_booking' barbearia.pk %}"
+               class="btn-primary booking-cta">
+                Entre para solicitar atendimento
+            </a>
+        {% endif %}
     </header>
 
     <section class="services-section">

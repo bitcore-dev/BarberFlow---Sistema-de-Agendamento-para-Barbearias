@@ -6,6 +6,8 @@ from . import views
 
 urlpatterns = [
     path("", views.home, name="home"),
+
+    # Autenticação
     path("cadastro/", views.register, name="register"),
     path(
         "login/",
@@ -20,12 +22,32 @@ urlpatterns = [
         auth_views.LogoutView.as_view(),
         name="logout",
     ),
-    path("painel/", views.dashboard, name="dashboard"),
-    
-path(
-    "barbearia/<int:pk>/",
-    views.barbershop_detail,
-    name="barbershop_detail",
-),
 
+    # Painel do usuário
+    path("painel/", views.dashboard, name="dashboard"),
+
+    # Barbearias
+    path(
+        "barbearia/<int:pk>/",
+        views.barbershop_detail,
+        name="barbershop_detail",
+    ),
+
+    # Reservas
+    path(
+        "barbearia/<int:pk>/reservar/",
+        views.create_booking,
+        name="create_booking",
+    ),
+    path(
+        "minhas-reservas/<int:pk>/",
+        views.booking_detail,
+        name="booking_detail",
+    ),
+
+    path(
+    "painel/barbearia/nova/",
+    views.create_barbershop,
+    name="create_barbershop",
+),
 ]

@@ -1,19 +1,64 @@
 
 {% extends "core/base.html" %}
 
-{% block title %}Painel da barbearia | BarberFlow{% endblock %}
+{% block title %}Painel do proprietário | BarberFlow{% endblock %}
 
 {% block content %}
 <section class="dashboard">
     <p class="eyebrow">ÁREA DO PROPRIETÁRIO</p>
+
     <h1>Gerencie sua barbearia.</h1>
+
     <p>
-        Sua conta de proprietário está pronta.
-        Em breve você poderá cadastrar sua barbearia,
-        seus profissionais e seus serviços.
+        Cadastre seus estabelecimentos e prepare-os para receber
+        solicitações de atendimento pelo BarberFlow.
     </p>
-    <a href="{% url 'home' %}" class="btn-primary">
-        Voltar ao início
+
+    {% if not barbearias %}
+    <a href="{% url 'create_barbershop' %}" class="btn-primary">
+        Cadastrar minha barbearia
     </a>
+{% endif %}
+</section>
+
+<section class="dashboard">
+    <h2>Minhas barbearias</h2>
+
+    {% if barbearias %}
+        <div class="barbershop-list">
+            {% for barbearia in barbearias %}
+                <article class="booking-card">
+                    <h3>{{ barbearia.name }}</h3>
+
+                    <p>
+                        {{ barbearia.neighborhood }},
+                        {{ barbearia.city }}
+                    </p>
+
+                    <p>
+                        <strong>Endereço:</strong>
+                        {{ barbearia.address }}
+                    </p>
+
+                    <p>
+                        <strong>Limite diário:</strong>
+                        {{ barbearia.daily_capacity }} clientes
+                    </p>
+
+                    <a
+                        href="{% url 'barbershop_detail' barbearia.pk %}"
+                        class="btn-primary"
+                    >
+                        Visualizar página pública
+                    </a>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>
+            Você ainda não cadastrou nenhuma barbearia.
+            Utilize o botão acima para começar.
+        </p>
+    {% endif %}
 </section>
 {% endblock %}
