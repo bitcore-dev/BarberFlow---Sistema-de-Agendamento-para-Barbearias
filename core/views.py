@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.db import transaction
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.http import url_has_allowed_host_and_scheme
-from .forms import RegistrationForm, BookingForm, BarbershopForm
+from .forms import RegistrationForm, BookingForm, BarbershopForm, ServiceForm
 from .models import UserProfile, Barbershop, Service, Booking
 from django.db.models import Q
 from django.shortcuts import render
@@ -258,4 +258,46 @@ def booking_detail(request, pk):
         request,
         "core/booking_detail.html",
         {"reserva": reserva},
+    )
+
+@login_required
+def create_service(request):
+    profile, created = UserProfile.objects.get_or_create(
+        user=request.user,
+        defaults={"role": UserProfile.Role.CUSTOMER},
+    )
+
+    # Somente proprietários podem cadastrar serviços.
+    if profile.role != UserProfile.Role.OWNER:
+        return redirect("dashboard")
+
+    # Localiza a barbearia pertencente ao usuário.
+    barbearia = Barbershop.objects.filter(
+        owner=request.user,
+    ).first()
+
+    if barbearia is None:
+        return redirect("dashboard")
+
+    if request.method == "POST":
+        form = ServiceForm(request.POST)
+
+        if form.is_valid():
+            servico = form.save(commit=False)
+
+            # A associação é feita exclusivamente pelo backend.
+            servico.barbershop = barbearia
+            servico.save()
+
+            return redirect("dashboard")
+    else:
+        form = ServiceForm()
+
+    return render(
+        request,
+        "core/service_form.html",
+        {
+            "form": form,
+            "barbearia": barbearia,
+        },
     )

@@ -97,3 +97,49 @@ class BarbershopForm(forms.ModelForm):
             "description": forms.Textarea(attrs={"rows": 4}),
             "daily_capacity": forms.NumberInput(attrs={"min": 1}),
         }
+
+
+class ServiceForm(forms.ModelForm):
+    class Meta:
+        model = Service
+
+        fields = [
+            "name",
+            "description",
+            "price",
+            "estimated_duration_minutes",
+        ]
+
+        labels = {
+            "name": "Nome do serviço",
+            "description": "Descrição",
+            "price": "Preço (R$)",
+            "estimated_duration_minutes": "Duração estimada (minutos)",
+        }
+
+        help_texts = {
+            "price": "Informe o preço cobrado pelo serviço.",
+            "estimated_duration_minutes": (
+                "Tempo aproximado para realizar o atendimento."
+            ),
+        }
+
+        widgets = {
+            "description": forms.Textarea(
+                attrs={"rows": 3}
+            ),
+            "price": forms.NumberInput(
+                attrs={
+                    "min": "0",
+                    "step": "0.01",
+                    "placeholder": "0.00",
+                }
+            ),
+            "estimated_duration_minutes": forms.NumberInput(
+                attrs={
+                    "min": 5,
+                    "step": 5,
+                }
+            ),
+        }
+

@@ -49,5 +49,12 @@ urlpatterns = [
     "painel/barbearia/nova/",
     views.create_barbershop,
     name="create_barbershop",
+    
+),
+
+path(
+    "painel/servicos/novo/",
+    views.create_service,
+    name="create_service",
 ),
 ]
